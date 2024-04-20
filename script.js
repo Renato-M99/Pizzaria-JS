@@ -1,10 +1,11 @@
 let modalQtd;
+
+// ------------------------------- MOSTRA INFORMAÇÕES DA PIZZA --------------------- //
 pizzaJson.map((item, index) => {
 
     //clonando o pizza-item
     let pizzaItem = document.querySelector('.models .pizza-item').cloneNode(true);
-    //append = cria um elemento dentro do local especificado sempre na última posição, ou seja, não substitui os elementos que já estavam dentro.
-    document.querySelector('.pizza-area').append(pizzaItem);
+
 
     // Definindo um atributo chamado 'data-key' ao elemento .pizza-item, contendo o id da pizza que foi selecionada pelo usuário.
     pizzaItem.setAttribute('data-key', index);
@@ -52,13 +53,57 @@ pizzaJson.map((item, index) => {
         //exibindo a janela modal na tela ao clicar em uma pizza
         document.querySelector('.pizzaWindowArea').style.display = 'flex';
 
-        setTimeout(() =>{
+        setTimeout(() => {
             document.querySelector('.pizzaWindowArea').style.opacity = 1;
         }, 200)
 
 
-        console.log(pizzaJson[key]);
+        /*  console.log(pizzaJson[key]); */
 
     });
+
+    //append = cria um elemento dentro do local especificado sempre na última posição, ou seja, não substitui os elementos que já estavam dentro.
+    document.querySelector('.pizza-area').append(pizzaItem);
+
+});
+
+//events modal
+// função closeModal para fechar a janela modal ao cancelar.
+function closeModal() {
+
+    document.querySelector('.pizzaWindowArea').style.opacity = 0;
+    // função timeout para executar o fechamento do modal em .5s
+    setTimeout(() => {
+        document.querySelector('.pizzaWindowArea').style.display = 'none';
+    }, 500);
+}
+
+/*    document.querySelector('.pizzaInfo--cancelButton').addEventListener('click', (event) => {
+       closeModal();
+   })
+*/
+
+document.querySelectorAll('.pizzaInfo--cancelButton, .pizzaInfo--cancelMobileButton').forEach((item) => {
+    item.addEventListener('click', closeModal);
+});
+
+//carrinho
+
+document.querySelector('.pizzaInfo--qtmais').addEventListener('click', () => {
+
+    modalQtd++;
+ 
+    document.querySelector('.pizzaInfo--qt').innerHTML = modalQtd;
+  
+
+});
+
+
+document.querySelector('.pizzaInfo--qtmenos').addEventListener('click', () => {
+
+    if (modalQtd > 1) {
+        modalQtd--;
+    }
+    document.querySelector('.pizzaInfo--qt').innerHTML = modalQtd;
 
 });
