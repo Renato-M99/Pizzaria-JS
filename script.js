@@ -1,4 +1,6 @@
 let modalQtd;
+let cart = [];
+let modalKey = 0;
 
 // ------------------------------- MOSTRA INFORMAÇÕES DA PIZZA --------------------- //
 pizzaJson.map((item, index) => {
@@ -22,6 +24,8 @@ pizzaJson.map((item, index) => {
         event.preventDefault();
 
         modalQtd = 1;
+        modalKey = index;
+
         let key = event.target.closest('.pizza-item').getAttribute('data-key');
         console.log(pizzaJson[key]);
 
@@ -82,22 +86,21 @@ function closeModal() {
        closeModal();
    })
 */
-
+//cancelar botao
 document.querySelectorAll('.pizzaInfo--cancelButton, .pizzaInfo--cancelMobileButton').forEach((item) => {
     item.addEventListener('click', closeModal);
 });
 
-//carrinho
+
 
 document.querySelector('.pizzaInfo--qtmais').addEventListener('click', () => {
 
     modalQtd++;
- 
+
     document.querySelector('.pizzaInfo--qt').innerHTML = modalQtd;
-  
+
 
 });
-
 
 document.querySelector('.pizzaInfo--qtmenos').addEventListener('click', () => {
 
@@ -107,3 +110,23 @@ document.querySelector('.pizzaInfo--qtmenos').addEventListener('click', () => {
     document.querySelector('.pizzaInfo--qt').innerHTML = modalQtd;
 
 });
+
+//----------------------------  Carrinho ------------------------- //
+
+//sempre que em um sistema tivermos que selecionar uma opção diferente e uma opção anterior estiver selecionada, devemos primeiro tirar a seleção de todas as opções anteriores e só depois selecionar a nova opção que usuário selecionou.
+document.querySelectorAll('.pizzaInfo--size').forEach((item, sizeIndex) => {
+    item.addEventListener('click', (event) => {
+        // removendo a classe selecionada dos tamanhos pizza, assim garantimos que nenhuma pizza estará selecionada antes do usuário selecionar um tamanho.
+        document.querySelector('.pizzaInfo--size.selected').classList.remove('selected')
+        //adicionando a classe selected ao tamanho que o usuário está clicando.
+        item.classList.add('selected');
+    });
+});
+
+/* ----------------------- BOTÃO ADICIONAR AO CARRINHO ------------------------ */
+document.querySelector('.pizzaInfo--addButton').addEventListener('click', () =>{
+
+    let size = parseInt(document.querySelector('.pizzaInfo--size.selected').getAttribute('data-key'));
+
+    
+})
